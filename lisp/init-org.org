@@ -1,3 +1,6 @@
+** init-org
+#+BEGIN_SRC emacs-lisp
+
 (require 'org)
 
 (setq org-src-fontify-natively t)
@@ -16,3 +19,5 @@
 	(C . t)))
 
 (provide 'init-org)
+
+#+END_SRC 

@@ -1,3 +1,6 @@
+** emacs learn
+#+BEGIN_SRC emacs-lisp
+
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "M-x") 'counsel-M-x)
@@ -24,3 +27,4 @@
 
 (provide 'init-keybindings)
 
+#+END_SRC 

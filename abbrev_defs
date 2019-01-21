@@ -29,13 +29,18 @@
 
 (define-abbrev-table 'epa-key-mode-abbrev-table '())
 
+(define-abbrev-table 'evil-command-window-mode-abbrev-table '())
+
+(define-abbrev-table 'evil-list-view-mode-abbrev-table '())
+
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("7ws" "wensong" nil 1)
+    ("7ws" "wensong" nil 2)
     ("8ms" "Macrosoft" nil 1)
     ("8ws" "wensong" nil 1)
+    ("ws7" "wensong" nil 1)
    ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
@@ -67,6 +72,8 @@
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
+
+(define-abbrev-table 'shell-mode-abbrev-table '())
 
 (define-abbrev-table 'special-mode-abbrev-table '())
 
