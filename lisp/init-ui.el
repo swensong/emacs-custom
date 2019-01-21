@@ -1,11 +1,4 @@
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 
-(setq inhibit-splash-screen t)
-
-(setq-default cursor-type 'bar)
-
-(setq  initial-frame-alist (quote ((fullscreen . maximized))))
-
-(provide 'init-ui)
-
+(require 'org-install)
+(require 'ob-tangle)
+(org-babel-load-file (expand-file-name "wensong-ui.org" "~/.emacs.d/lisp"))
