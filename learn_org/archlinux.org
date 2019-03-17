@@ -1,0 +1,78 @@
+#+TITLE: ARCHlinux安装配置记录
+#+AUTHOR: 文劲松
+#+EMIL: wen_emil@163.com
+
+* archlinux安装记录
+** 制作archlinux的系统盘
+   因为我是在windows的环境下使用烧录软件烧录镜像文件
+1. [ ] 在windows的环境下
+   1. [ ] 下载archlinux镜像
+   2. [ ] 安装Rufus
+   3. [ ] 使用Rufus的过程中需要更改的就是采用DD的镜像烧录格式。
+2. [ ] 在linux的环境下
+   1. [ ] 下载archlinux镜像
+   2. [ ] 在U盘插入前后使用sudo fdisk -I 查看插入U盘的分区。
+   3. [ ] 使用umount命令为格式化U盘做准备 sudo umount /dev/sdb*
+   4. [ ] 格式化U盘 sudo mkfs.vfat /dev/sdb* -I
+   5. [ ] 使用dd命令，sudo dd if=xxx.iso of=u盘路径
+** 连接以太网
+*** wifi-menu
+    由于一直使用笔记本电脑，因此采用wifi进行联网开发
+1. [ ] 用笔记录wifi的名字与密码
+   1. [ ] 当前所在公司黄楼的wifi和密码
+      - wifi名字-NNN
+      - wifi密码-gzkj123123
+2. [ ] 使用wifi-menu命令登录连接
+** 分区
+1. [ ] 查看当前系统硬盘
+2. [ ] 进行分区格式化，分区转换为对应格式
+   1. [ ] swap 使用mkswap格式化为swap格式，使用swapon命令激活
+      - mkswap /dev/sda1
+      - swapon /dev/sda1
+   2. [ ] ext4 使用mkfs.ext4 转换为ext4格式
+      - mkfs.ext4 /dev/sda2
+3. [ ] 挂载对应的分区
+   1. [ ] 在/mnt 下创建对应的目录
+      - cd /mnt
+      - mkdir /home/
+      - mkdir /boot/
+   2. [ ] 将对应的分区挂载到/mnt对应的目录下
+      - mount /dev/sda2 /mnt/  (根目录)
+      - mount /dev/sda3 /mnt/boot (boot目录)
+      - mount /dev/sda4 /mnt/home (家目录)
+4. [ ] 安装系统软件
+   1. [ ] 修改源文件
+      - vi /etc/pacman.conf
+      - 将中国的源放到第一行，我常用清华的源
+   2. [ ] 更新源文件
+      - pacman -Syy
+   3. [ ] 安装基本的操作系统
+      - pacstrap /mnt base base-devel （安装基本的操作系统）
+      - genfstab -U -p /mnt >> /mnt/etc/fstab (生成fstab)
+      - arch-chroot /mnt/ /bin/bash  (转换到安装好了基本操作系统)
+   4. [ ] 配置语言环境
+      - vi /etc/locale.conf (添加一行LANG=en_US.UTF-8)
+      - vi /etc/locale.gen  (将en_US.UTF-8 UTF-8, zh_CN.UTF-8 UTF-8, zh_CN.GB2312前的注释去除)
+      - locale-gen  (更新语言环境)
+   5. [ ] 设置时间
+      - ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+      - hwclock --systohc --utc
+      - vim /etc/localtime (如时间设置出现问题，尝试修改此处的CST-8 -> CST-0)
+   6. [ ] 设置主机名和密码
+      - vi /etc/hostname (添加主机名)
+      - passwd (添加root用户的密码)
+   7. [ ] 安装一些net工具 net-tools, dnsutils, inetutils, iproutes2
+      - 还有一个我常用的wifi-menu 需要依赖包dialog
+   8. [ ] 安装grub
+      - 安装双系统需要先安装ntfs-3g，使其可以识别windows的文件系统。
+      - pacman -S grub os-prober
+      - grub-install --target=i386-pc --recheck /dev/sda
+      - grub-mkconfig -o /boot/grub/grub.cfg
+   9. [ ] 卸载分区
+      - exit
+      - umount /mnt/
+      - reboot
+	
+* archlinux配置记录
+** 中文输入法
+** 挂载硬盘
